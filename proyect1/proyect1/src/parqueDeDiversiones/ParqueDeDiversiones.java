@@ -12,13 +12,9 @@ import atraccion.AtraccionCultural;
 import atraccion.AtraccionMecanica;
 
 public class ParqueDeDiversiones {
-    private static List<Atraccion> atracciones;
-    private static Map<String, String> mapaExclusividad;
-    
-    public ParqueDeDiversiones() {
-        ParqueDeDiversiones.atracciones = new ArrayList<>();
-        ParqueDeDiversiones.mapaExclusividad = new HashMap<>();
-    }
+	private static List<Atraccion> atracciones = new ArrayList<>();
+	private static Map<String, String> mapaExclusividad = new HashMap<>();
+	
 
 	public static void cargarAtracciones(String rutaArchivo) {//implementarla en la consola
 		
@@ -28,16 +24,38 @@ public class ParqueDeDiversiones {
 			String linea;
 			while((linea = br.readLine()) != null) {
 				String[]secciones = linea.split(",");
-				int cupo = Integer.parseInt(secciones[0]);
-				int numEmpleado=Integer.parseInt(secciones[1]);
-				String nivelAtraccion=secciones[2];
-				String tipoAtraccion=secciones[3];
-				String nombreAtraccion=secciones[4];
+				
+				//aqui tambien consulte para poder verificar el formato del archivo de texto
+				if (secciones.length < 5) {
+	                System.out.println("Línea malformada (muy corta): " + linea);
+	                continue;
+	            }
+				
+				String tipoAtraccion=secciones[0];
+				String nombreAtraccion=secciones[1];
+				int cupo = valoresDefecto(secciones[2], 0);
+				int numEmpleado=valoresDefecto(secciones[3],0);
+				String nivelAtraccion=secciones[4];
 				
 				if (tipoAtraccion.equalsIgnoreCase("cultural")) {
-					int edadMinima=Integer.parseInt(secciones[5]);
-					boolean esTemporada=Boolean.parseBoolean(secciones[6]);
-					String fecha=secciones[7];
+					int edadMinima;
+					if (secciones.length > 5) {
+					    edadMinima = Integer.parseInt(secciones[5]);
+					} else {
+					    edadMinima = 0;
+					}
+					boolean esTemporada;
+					if (secciones.length > 6) {
+						esTemporada = Boolean.parseBoolean(secciones[6]);
+					} else {
+					    esTemporada = false;
+					}
+					String fecha;
+					if (secciones.length > 7) {
+	                    fecha = secciones[7];
+	                } else {
+	                    fecha = "Desconocida";
+	                }
 					
 					AtraccionCultural cul = new AtraccionCultural(cupo, numEmpleado, nivelAtraccion, tipoAtraccion, nombreAtraccion);
 					cul.setEdadMinima(edadMinima);
@@ -45,14 +63,46 @@ public class ParqueDeDiversiones {
 					cul.setFechaTemporada(fecha);
 					atracciones.add(cul);
 					mapaExclusividad.put(nombreAtraccion,nivelAtraccion);
-				}else if (tipoAtraccion.equalsIgnoreCase("mecanica")) {
-					int peso=Integer.parseInt(secciones[5]);
-					int altura=Integer.parseInt(secciones[6]);
-					boolean discapacitado=Boolean.parseBoolean(secciones[7]);
-					boolean vertigo=Boolean.parseBoolean(secciones[8]);
-					boolean esTemporada=Boolean.parseBoolean(secciones[9]);
-					String fecha=secciones[10];
 					
+				}else if (tipoAtraccion.equalsIgnoreCase("mecanica")) {
+					int peso;
+					if (secciones.length > 5) {
+					    peso = Integer.parseInt(secciones[5]);
+					} else {
+					    peso = 0;
+					}
+					int altura;
+					if (secciones.length > 6) {
+	                    altura = Integer.parseInt(secciones[6]);
+	                } else {
+	                    altura = 0;
+	                }
+					boolean discapacitado;
+					if (secciones.length > 7) {
+					    discapacitado = Boolean.parseBoolean(secciones[7]);
+					} else {
+						discapacitado = false;
+					}
+					boolean vertigo;
+					if (secciones.length > 8) {
+					    vertigo = Boolean.parseBoolean(secciones[8]);
+					} else {
+						vertigo = false;
+					}
+					
+					boolean esTemporada;
+					if (secciones.length > 9) {
+						esTemporada = Boolean.parseBoolean(secciones[9]);
+					} else {
+						esTemporada = false;
+					}
+					String fecha;
+					
+					if (secciones.length > 10) {
+	                    fecha = secciones[10];
+	                } else {
+	                    fecha = "Desconocida";
+	                }
 					AtraccionMecanica mec = new AtraccionMecanica(cupo, numEmpleado, nivelAtraccion, tipoAtraccion, nombreAtraccion);
 					mec.setPesoUsuario(peso);
 					mec.setAlturaUusario(altura);
@@ -69,6 +119,14 @@ public class ParqueDeDiversiones {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println("error leyendo las atracciones");
+		}
+	}
+	
+	private static int valoresDefecto(String valor, int valorPorDefecto) {
+		try {
+			return Integer.parseInt(valor);
+		}catch (NumberFormatException e) {
+			return valorPorDefecto;
 		}
 	}
 	

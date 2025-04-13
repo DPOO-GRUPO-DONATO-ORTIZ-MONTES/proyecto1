@@ -108,4 +108,29 @@ public class empleado {
 	public void cambiarLugarAsignado(String lugarAsignado) {
 		this.lugarAsignado = lugarAsignado;
 	}
+	
+	public static void mostrarTodosEmpleados() {
+		if (empleadosPorNombre.isEmpty()) {
+	        System.out.println("No hay empleados registrados.");
+	        return;
+	    }
+		
+		System.out.println("informacion de los empleados: ");
+		
+		for (Map.Entry<String, empleado> emp : empleadosPorNombre.entrySet()) {
+			empleado em = emp.getValue();
+			
+			System.out.println("nombre del empleado: "+ em.getNombre());
+			System.out.println("tipo de empleado: "+ em.getTipoEmpleado());
+			System.out.println("ID del empleado: "+ em.getID());
+			System.out.println("salario del empleado: "+ em.getSalario());
+			System.out.println("rango de atraccion del empleado (si le corresponde,si no es 0): "+ em.getRangoAtraccion());
+			System.out.println("turno del empleado: "+ em.getTurno());
+			System.out.println("horaExtra del empleado: "+ em.getHoraExtra());
+			System.out.println("bonus por horas extra del empleado: "+ em.getBonusHoraExtra());
+			System.out.println("lugar asignado del empleado: "+ em.getLugarAsignado());
+			
+		}
+	}
+	
 }

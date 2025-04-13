@@ -30,6 +30,7 @@ public class Main {
             System.out.println("6. Cargar atracciones desde archivo");
             System.out.println("7. ver calatalogo de atracciones");
             System.out.println("8. consultar tipo de pase");
+            System.out.println("9.ver empleados");
             System.out.println("0. Salir");
             int opcion = sc.nextInt();
             sc.nextLine();  // Limpiar buffer
@@ -88,6 +89,10 @@ public class Main {
                 case 8:
                 	consultarTipoDeTiquete(sc);
                 	break;
+                case 9:
+                	System.out.println("cargando empleados...");
+                	empleado.mostrarTodosEmpleados();
+                	break;
                 case 0:
                     guardarUsuariosEnArchivo(listaClientes);
                     guardarEmpleadosEnArchivo();
@@ -104,20 +109,32 @@ public class Main {
     public static void registrarUsuario(Scanner sc) {
         System.out.println("Ingrese el nombre del cliente:");
         String nombre = sc.nextLine();
-        System.out.println("Ingrese el ID del cliente:");
-        int ID = sc.nextInt();
-        sc.nextLine(); // Limpiar buffer
+        int ID = obtenerEnteroValido(sc, "Ingrese el ID del cliente:");
         System.out.println("Ingrese el correo del cliente:");
         String correo = sc.nextLine();
-        System.out.println("Ingrese la contraseña del cliente:");
-        int password = sc.nextInt();
-        sc.nextLine(); // Limpiar buffer
+        int password = obtenerEnteroValido(sc, "Ingrese la contraseña del cliente:");
 
         // Crear un nuevo cliente y agregarlo a la lista
         Cliente nuevoCliente = new Cliente(nombre, ID, correo, password);
         listaClientes.put(correo, nuevoCliente);
 
         System.out.println("Cliente registrado con éxito.");
+    }
+    
+    public static int obtenerEnteroValido(Scanner sc, String mensaje) {
+        int valor = -1;
+        while (true) {
+            System.out.println(mensaje);
+            try {
+                valor = sc.nextInt();
+                sc.nextLine(); 
+                break; 
+            } catch (Exception e) {
+                System.out.println("¡Error! Debe ingresar un número entero.");
+                sc.nextLine(); 
+            }
+        }
+        return valor;
     }
 
     // Método para registrar un empleado
@@ -128,18 +145,12 @@ public class Main {
         String nombre = sc.nextLine();
         System.out.println("Ingrese el turno del empleado:");
         String turno = sc.nextLine();
-        System.out.println("¿El empleado tiene horas extra? (true/false):");
-        Boolean horaExtra = sc.nextBoolean();
-        System.out.println("Ingrese el ID del empleado:");
-        int ID = sc.nextInt();
-        System.out.println("Ingrese el salario del empleado:");
-        int salario = sc.nextInt();
-        sc.nextLine();  // Limpiar buffer
+        Boolean horaExtra = obtenerValido(sc, "¿El empleado tiene horas extra? (true/false):");
+        int ID = obtenerEnteroValido(sc, "Ingrese el ID del empleado:");
+        int salario = obtenerEnteroValido(sc, "Ingrese el salario del empleado:");
         System.out.println("Ingrese el rango de la atracción del empleado:");
         String rangoAtraccion = sc.nextLine();
-        System.out.println("Ingrese el bonus por horas extra:");
-        int bonusHoraExtra = sc.nextInt();
-        sc.nextLine();  // Limpiar buffer
+        int bonusHoraExtra = obtenerEnteroValido(sc, "Ingrese el bonus por horas extra:");
         System.out.println("Ingrese el lugar asignado:");
         String lugarAsignado = sc.nextLine();
 
@@ -173,7 +184,22 @@ public class Main {
         empleado.empleadosPorNombre.put(nombre, nuevoEmpleado);
         System.out.println("Empleado registrado con éxito.");
     }
-
+    
+    public static Boolean obtenerValido(Scanner sc, String mensaje) {
+        Boolean valor = null;
+        while (true) {
+            System.out.println(mensaje);
+            String input = sc.nextLine().trim().toLowerCase();
+            if (input.equals("true") || input.equals("false")) {
+                valor = Boolean.parseBoolean(input);
+                break;
+            } else {
+                System.out.println("Debe ingresar true o false ");
+            }
+        }
+        return valor;
+    }
+    
     // Método para guardar usuarios en archivo
     public static void guardarUsuariosEnArchivo(Map<String, Cliente> listaClientes) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("usuarios.txt"))) {
