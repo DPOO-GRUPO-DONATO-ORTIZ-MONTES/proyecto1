@@ -30,7 +30,8 @@ public class Main {
             System.out.println("6. Cargar atracciones desde archivo");
             System.out.println("7. ver calatalogo de atracciones");
             System.out.println("8. consultar tipo de pase");
-            System.out.println("9.ver empleados");
+            System.out.println("9. ver empleados");
+            System.out.println("10. validar uso del tiquete ");
             System.out.println("0. Salir");
             int opcion = sc.nextInt();
             sc.nextLine();  // Limpiar buffer
@@ -92,6 +93,9 @@ public class Main {
                 case 9:
                 	System.out.println("cargando empleados...");
                 	empleado.mostrarTodosEmpleados();
+                	break;
+                case 10:
+                	validarTiquete(sc);
                 	break;
                 case 0:
                     guardarUsuariosEnArchivo(listaClientes);
@@ -348,6 +352,22 @@ public class Main {
             System.out.println("Opcion no valida ");
         }
     }
+    }
+    public static void validarTiquete(Scanner sc) {
+        System.out.println("Ingrese el correo del cliente:");
+        String correo = sc.nextLine();
+
+        Cliente cliente = Cliente.listaClientes.get(correo);
+
+        if (cliente == null) {
+            System.out.println("Cliente no encontrado.");
+            return;
+        }
+
+        System.out.println("Ingrese el código del tiquete:");
+        String codigo = sc.nextLine();
+        
+        VentaOnline.tiquetesUsados(codigo);
     }
     public static void consultarTipoDeTiquete(Scanner sc) {
     	System.out.println("ingrese el correo del usuario ");

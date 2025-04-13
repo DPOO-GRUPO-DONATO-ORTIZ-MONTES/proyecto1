@@ -77,7 +77,6 @@ public class Cliente {
 		tiqueteComprado.put(idTiquete, mapaTiquete);
 		
 	}
-
 	
 	public static void cargarUsuariosDesdeArchivo(String rutaArchivo) {
         try (BufferedReader reader = new BufferedReader(new FileReader(rutaArchivo))) {
@@ -99,6 +98,7 @@ public class Cliente {
         }
     }
 	public void mostrarTiposDeTiquetesComprados() {
+		//para poder mostrar esto fue necesario consultar ya que nos era dificil encontrar una manera para iterar sobre el mapa
 	    if (tiqueteComprado.isEmpty()) {
 	        System.out.println("El cliente no ha comprado ningún tiquete.");
 	        return;

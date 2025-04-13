@@ -12,6 +12,7 @@ public class VentaOnline {
 	private Date fecha;
 	private String metodoPago;
 	private List<Tiquete> listaTiquetes;
+	public static ArrayList<String> tiquetesUsados = new ArrayList<>();
 	private Cliente comprador;
 	
 	
@@ -52,15 +53,7 @@ public class VentaOnline {
 		return total;
 	}
 	
-	public static void tiqueteUsado(ArrayList<String> listaTiquete, String codigoTiquete) {
-		if(listaTiquete.contains(codigoTiquete)) {
-			System.out.println("El tiquete ya esta usado");
-		}
-		else{
-			listaTiquete.add(codigoTiquete);
-			System.out.println("El tiquete ha sido registrado");
-		}	
-	}
+	
 	public Map<String, Map<String, String>> venderTiquete(String nombre, String tipo, String fechaActual, String fechaTemporada, String codigoTiquete,Cliente cliente){
 		String valorfinalO;
 		String valorfinalF;
@@ -147,6 +140,14 @@ public class VentaOnline {
 		return comprador;
 	}
 
-	
-	
+
+	public static void tiquetesUsados(String codigoTiquete) {
+		// TODO Auto-generated method stub
+		 if (tiquetesUsados.contains(codigoTiquete)) {
+		        System.out.println("El tiquete ya está usado");
+		  } else {
+		    tiquetesUsados.add(codigoTiquete);
+		    System.out.println("El tiquete ha sido registrado");
+		  }
+}	
 }
