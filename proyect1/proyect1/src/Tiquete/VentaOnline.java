@@ -1,7 +1,10 @@
 package Tiquete;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import cliente.Cliente;
 
@@ -21,11 +24,6 @@ public class VentaOnline {
 		this.comprador = comprador;
 	}
 	
-	public void venderTiquete(Tiquete tiquete) {
-		listaTiquetes.add(tiquete);
-		comprador.tiqueteComprado((tiquete.getid()), tiquete);
-		System.out.println("tiquete vendido " + "id " + tiquete.getid());
-	}
 	
 	public void registrarVenta(Tiquete tiquete) {
 		listaTiquetes.add(tiquete);
@@ -54,7 +52,84 @@ public class VentaOnline {
 		return total;
 	}
 	
-	
+	public static void tiqueteUsado(ArrayList<String> listaTiquete, String codigoTiquete) {
+		if(listaTiquete.contains(codigoTiquete)) {
+			System.out.println("El tiquete ya esta usado");
+		}
+		else{
+			listaTiquete.add(codigoTiquete);
+			System.out.println("El tiquete ha sido registrado");
+		}	
+	}
+	public Map<String, Map<String, String>> venderTiquete(String nombre, String tipo, String fechaActual, String fechaTemporada, String codigoTiquete,Cliente cliente){
+		String valorfinalO;
+		String valorfinalF;
+		String valorfinalD;
+		Map<String, String> informacionTiquete= new HashMap<>();
+		Map<String, Map<String, String>> ventaTiquete= new HashMap<>();
+		informacionTiquete.put("codigo", codigoTiquete);
+		informacionTiquete.put("nombre", nombre);
+		informacionTiquete.put("tipo", tipo);
+		informacionTiquete.put("fecha de venta", fechaActual);
+		if (fechaActual==fechaTemporada && tipo=="Diamante") {
+			valorfinalD="30000";
+			informacionTiquete.put("valor Tiquete", valorfinalD);
+			ventaTiquete.put(codigoTiquete, informacionTiquete);
+			return ventaTiquete;
+			}
+		if (fechaActual==fechaTemporada && tipo=="Oro") {
+			valorfinalO="25000";
+			informacionTiquete.put("valor Tiquete", valorfinalO);
+			ventaTiquete.put(codigoTiquete, informacionTiquete);
+			return ventaTiquete;
+			}
+		if (fechaActual==fechaTemporada && tipo=="Familiar") {
+			valorfinalF="20000";
+			informacionTiquete.put("valor Tiquete", valorfinalF);
+			ventaTiquete.put(codigoTiquete, informacionTiquete);
+			return ventaTiquete;
+		}
+		if (tipo=="Oro") {
+			valorfinalO="30000";
+			informacionTiquete.put("valor Tiquete", valorfinalO);
+			ventaTiquete.put(codigoTiquete, informacionTiquete);
+			return ventaTiquete;
+		}
+		if ( tipo=="Diamante") {
+			valorfinalD="35000";
+			informacionTiquete.put("valor Tiquete", valorfinalD);
+			ventaTiquete.put(codigoTiquete, informacionTiquete);
+			return ventaTiquete;
+		}
+		if (tipo=="Familiar") {
+			valorfinalF="25000";
+			informacionTiquete.put("valor Tiquete", valorfinalF);
+			ventaTiquete.put(codigoTiquete, informacionTiquete);
+			return ventaTiquete;
+		}
+		if (tipo=="Basico") {
+			String valorfinalBasico="15000";
+			informacionTiquete.put("valor Tiquete",valorfinalBasico);
+			ventaTiquete.put(codigoTiquete, informacionTiquete);
+			return ventaTiquete;
+		}
+		Tiquete nuevoTiquete = null;
+	    String tipoTiquete = informacionTiquete.get("tipo");
+	    Date fechaCompra = new Date();
+	    boolean marcadorUso = false;
+
+	    if (tipoTiquete.equals("Diamante") || tipoTiquete.equals("Oro") || tipoTiquete.equals("Familiar")) {
+	        nuevoTiquete = new TiqueteConRango(codigoTiquete, tipoTiquete, fechaCompra, marcadorUso, cliente, fechaCompra, null);
+	    } else if (tipoTiquete.equals("Basico")) {
+	        nuevoTiquete = new EntradaIndividual(codigoTiquete, tipoTiquete, fechaCompra, marcadorUso, cliente, null); // Aquí no hay atracciones asignadas.
+	    }
+
+	    if (nuevoTiquete != null) {
+	        cliente.tiqueteComprado(codigoTiquete,nuevoTiquete);
+	    }
+		return ventaTiquete;
+	}
+
 	
 	public List<Tiquete> getListaTiquetes() {
 		return listaTiquetes;

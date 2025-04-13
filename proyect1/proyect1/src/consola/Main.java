@@ -2,12 +2,12 @@ package consola;
 
 import java.io.*;
 import java.util.*;
-
 import cliente.Cliente;
 import Empleado.empleado;
 import Empleado.cajero;
 import Empleado.cocinero;
 import Empleado.operadorMecanica;
+import Tiquete.VentaOnline;
 import parqueDeDiversiones.ParqueDeDiversiones;
 
 public class Main {
@@ -25,7 +25,7 @@ public class Main {
             System.out.println("1. Registrar Usuario");
             System.out.println("2. Registrar Empleado");
             System.out.println("3. Vender Tiquete");
-            System.out.println("4. Gestionar Empleado,camibar lugar y cambiar turno ");
+            System.out.println("4. Gestionar Empleado,cambiar lugar y cambiar turno ");
             System.out.println("5. Cargar Usuarios desde archivo");
             System.out.println("6. Cargar atracciones desde archivo");
             System.out.println("7. ver calatalogo de atracciones");
@@ -229,8 +229,84 @@ public class Main {
 
     // Método de venta de tiquete 
     public static void venderTiquete() {
-        
         System.out.println("Vendiendo tiquete...");
+        Scanner sc = new Scanner(System.in);
+        System.out.println("ingrese el nombre del cliente: ");
+        String nombre=sc.nextLine();
+        System.out.println("ingrese el correo del cliente: ");
+        String correo=sc.nextLine();
+        String tipo=null;
+        while (tipo == null) {
+        	System.out.println("ingrese el tipo de tiquete (1 para diamante,2 para oro,3 para familiar,4 para basico)");
+        
+        	String opcion=sc.nextLine();
+        
+        	switch (opcion) {
+        		case "1":
+        			tipo="Diamante";
+        			break;
+        		case "2":
+        			tipo="Oro";
+        			break;
+        		case "3":
+        			tipo="Familiar";
+        			break;
+        		case "4":
+        			tipo="Basico";
+        			break;
+        		default:
+                	System.out.println("opcion invalida intentelo de nuevo (si concidera que esta ingresando una opcion correcta,verifique los espacios en blanco)");
+
+        	}
+        String fechaActual = leerFecha(sc, "Ingrese la fecha actual (por ejemplo 2025-04-12): ");
+        String fechaTemporada = leerFecha(sc, "Ingrese la fecha de temporada (por ejemplo 2025-04-12): ");
+        System.out.println("ingrese el codigo del tiquete: ");
+        String id=sc.nextLine();
+        
+        VentaOnline ventas = new VentaOnline(new Date(), "efectivo", new ArrayList<>(), null);
+        
+        Cliente cliente = listaClientes.get(correo);
+        
+        if(cliente==null) {
+        	registrarUsuario(sc);
+        	cliente = listaClientes.get(correo);
+        }
+        if (cliente != null) {
+        	Map<String, Map<String, String>> venta =ventas.venderTiquete(nombre, tipo, fechaActual, fechaTemporada, id, cliente);
+        	
+        	if (venta.containsKey(id)) {
+        		System.out.println("el tiquete se ha vendio: ");
+        		Map<String, String> info = venta.get(id);
+        		for (Map.Entry<String, String> valor : info.entrySet()) {
+        			System.out.println(valor.getKey() + ": " + valor.getValue());
+        		}
+        		System.out.println("se agrego correctamente tiquete a "+cliente.getNombre());
+        	}else {
+        		System.out.println("no se logre vender el tiquete");
+        	}
+        	
+        }else {
+        	System.out.println("no se encontro el cliente");
+        }
+        
+        }
+        
+        
+        
+    }
+    
+    public static String leerFecha(Scanner sc, String mensaje) {
+    	//para evitar errores se implementa esta funcion que verifica si la fecha esta en un formato correcto,tuve que consultar en internet como implementarlo.
+        String formatoFecha = "\\d{4}-\\d{2}-\\d{2}"; // yyyy-MM-dd
+        while (true) {
+            System.out.println(mensaje);
+            String fecha = sc.nextLine();
+            if (fecha.matches(formatoFecha)) {
+                return fecha;
+            } else {
+                System.out.println("Formato incorrecto. Debe ser yyyy-MM-dd.");
+            }
+        }
     }
 
     // Método para gestionar empleados 

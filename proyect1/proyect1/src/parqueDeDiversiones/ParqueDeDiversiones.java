@@ -16,9 +16,9 @@ public class ParqueDeDiversiones {
 	private static Map<String, String> mapaExclusividad = new HashMap<>();
 	
 
-	public static void cargarAtracciones(String rutaArchivo) {//implementarla en la consola
+	public static void cargarAtracciones(String rutaArchivo) {
 		
-		//en esta funcion requeri consultar en internet para ver } como cargar en base a un archivo plano,tambien use el equalsIgnoreCase para evitar errores al evaluar el tipo de atraccion y compararlo.
+		//en esta funcion requeri consultar en internet para ver  como cargar en base a un archivo plano,tambien use el equalsIgnoreCase para evitar errores al evaluar el tipo de atraccion y compararlo.
 		
 		try (BufferedReader br = new BufferedReader(new FileReader(rutaArchivo))){
 			String linea;
