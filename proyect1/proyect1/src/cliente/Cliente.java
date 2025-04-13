@@ -1,5 +1,8 @@
 package cliente;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,6 +15,7 @@ public class Cliente {
 	private int password;
 	private Map<String, String> carnetSalud;
 	private Map<String, Map<String, String>> tiqueteComprado=new HashMap<>();
+	public static Map<String,Cliente> listaClientes = new HashMap<>(); 
 	
 	public Cliente(String nombre, int ID, String correo, int password) {
 		this.setCorreo(correo);
@@ -71,6 +75,41 @@ public class Cliente {
 		mapaTiquete.put("fechaCompra", tiquete.getFechaCompra().toString());
 		mapaTiquete.put("estadoUso", String.valueOf(tiquete.getMarcadorUso()));
 		tiqueteComprado.put(idTiquete, mapaTiquete);
+		
+	}
+
+	
+	public static void cargarUsuariosDesdeArchivo(String rutaArchivo) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(rutaArchivo))) {
+            String linea;
+            while ((linea = reader.readLine()) != null) {
+                String[] datos = linea.split(",");
+                String nombre = datos[0];
+                int ID = Integer.parseInt(datos[1]);
+                String correo = datos[2];
+                int password = Integer.parseInt(datos[3]);
+
+                // Crear un nuevo cliente y agregarlo a la lista
+                Cliente cliente = new Cliente(nombre, ID, correo, password);
+                listaClientes.put(correo, cliente);
+            }
+            System.out.println("Usuarios cargados desde el archivo.");
+        } catch (IOException e) {
+            System.out.println("Error al cargar los usuarios: " + e.getMessage());
+        }
+    }
+	public void mostrarTiposDeTiquetesComprados() {
+	    if (tiqueteComprado.isEmpty()) {
+	        System.out.println("El cliente no ha comprado ningún tiquete.");
+	        return;
+	    }
+
+	    System.out.println("Tiquetes comprados por " + this.getNombre() + ":");
+	    for (Map.Entry<String, Map<String, String>> entrada : tiqueteComprado.entrySet()) {
+	        String idTiquete = entrada.getKey();
+	        String tipo = entrada.getValue().get("Tipo");
+	        System.out.println(" la id es: " + idTiquete + "el tipo es: " + tipo);
+	    }
 	}
 }
 

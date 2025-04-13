@@ -51,8 +51,6 @@ public class Administrador {
 		return pasword;
 	}
 
-
-
 	public ArrayList<empleado> getEmpleados() {
 		return empleados;
 	}

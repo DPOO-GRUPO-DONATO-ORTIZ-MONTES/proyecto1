@@ -13,7 +13,7 @@ public class empleado {
 	private String RangoAtraccion;
 	private int BonusHoraExtra;
 	private String lugarAsignado;
-	
+	public static Map<String, empleado> empleadosPorNombre = new HashMap<>();
 	
 	
 	public empleado(String tipoEmpleado, String nombre, String turno, Boolean horaExtra, int iD, int salario,
@@ -68,6 +68,26 @@ public class empleado {
 	public int getBonusHoraExtra() {
 		return BonusHoraExtra;
 	}
+	
+	public void setSalario(int salario) {
+	    this.Salario = salario;
+	}
+
+	public void setTurno(String turno) {
+	    this.Turno = turno;
+	}
+
+	public void setHoraExtra(boolean horaExtra) {
+	    this.HoraExtra = horaExtra;
+	}
+	
+	public empleado buscarEmpleado(String nombre) {
+        return empleadosPorNombre.get(nombre);
+    }
+	
+	public void agregarEmpleado(empleado e) {
+        empleadosPorNombre.put(e.getNombre(), e);
+    }
 	
 	public  Map<String, Map<String, Object>> getInfoPorEmpleado(String Nombre,int ID,int Salario,String RangoAtraccion,String turno,String TipoEmpleado){
 		Map<String, Object> datosEmpleado=new HashMap<>();
