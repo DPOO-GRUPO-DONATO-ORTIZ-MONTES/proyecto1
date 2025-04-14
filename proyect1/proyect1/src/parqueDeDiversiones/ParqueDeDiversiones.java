@@ -27,7 +27,7 @@ public class ParqueDeDiversiones {
 				
 				//aqui tambien consulte para poder verificar el formato del archivo de texto
 				if (secciones.length < 5) {
-	                System.out.println("Línea malformada (muy corta): " + linea);
+	                System.out.println("Error datos incompletos "+ linea);
 	                continue;
 	            }
 				
@@ -38,24 +38,30 @@ public class ParqueDeDiversiones {
 				String nivelAtraccion=secciones[4];
 				
 				if (tipoAtraccion.equalsIgnoreCase("cultural")) {
-					int edadMinima;
+					int edadMinima = 0;
 					if (secciones.length > 5) {
-					    edadMinima = Integer.parseInt(secciones[5]);
-					} else {
-					    edadMinima = 0;
+						try {
+							edadMinima = Integer.parseInt(secciones[5]);
+						} catch (NumberFormatException e) {
+							System.out.println("error al evaluar,convertir y almacenar la edad minima: " + secciones[5] + " linea: " + linea);
+						}
 					}
-					boolean esTemporada;
+					boolean esTemporada = false;
 					if (secciones.length > 6) {
-						esTemporada = Boolean.parseBoolean(secciones[6]);
-					} else {
-					    esTemporada = false;
+						try {
+							esTemporada = Boolean.parseBoolean(secciones[6]);
+						} catch (NumberFormatException e) {
+							System.out.println("error al evaluar,convertir y almacenar si es temporada: " + secciones[6] + " linea: " + linea);
+						}
 					}
-					String fecha;
+					String fecha = "Desconocida";;
 					if (secciones.length > 7) {
-	                    fecha = secciones[7];
-	                } else {
-	                    fecha = "Desconocida";
-	                }
+	                    try {
+	                    	fecha = secciones[7];
+						} catch (NumberFormatException e) {
+							System.out.println("error al evaluar,convertir y almacenar fecha: " + secciones[7] + " linea: " + linea);
+						}
+					}
 					
 					AtraccionCultural cul = new AtraccionCultural(cupo, numEmpleado, nivelAtraccion, tipoAtraccion, nombreAtraccion);
 					cul.setEdadMinima(edadMinima);
@@ -65,44 +71,56 @@ public class ParqueDeDiversiones {
 					mapaExclusividad.put(nombreAtraccion,nivelAtraccion);
 					
 				}else if (tipoAtraccion.equalsIgnoreCase("mecanica")) {
-					int peso;
+					int peso=0;
 					if (secciones.length > 5) {
-					    peso = Integer.parseInt(secciones[5]);
-					} else {
-					    peso = 0;
+					    try {
+					    	peso = Integer.parseInt(secciones[5]);
+						} catch (NumberFormatException e) {
+							System.out.println("error al evaluar,convertir y almacenar peso: " + secciones[5] + " linea: " + linea);
+						}
 					}
-					int altura;
+					int altura=0;
 					if (secciones.length > 6) {
-	                    altura = Integer.parseInt(secciones[6]);
-	                } else {
-	                    altura = 0;
+	                    try {
+	                    	altura = Integer.parseInt(secciones[6]);
+						} catch (NumberFormatException e) {
+							System.out.println("error al evaluar,convertir y almacenar altura: " + secciones[6] + " linea: " + linea);
+						}
 	                }
-					boolean discapacitado;
+					boolean discapacitado=false;
 					if (secciones.length > 7) {
-					    discapacitado = Boolean.parseBoolean(secciones[7]);
-					} else {
-						discapacitado = false;
+					    try {
+					    	discapacitado = Boolean.parseBoolean(secciones[7]);
+						} catch (NumberFormatException e) {
+							System.out.println("error al evaluar,convertir y almacenar si es valido para discapacitados: " + secciones[7] + " linea: " + linea);
+						}
 					}
-					boolean vertigo;
+					boolean vertigo=false;
 					if (secciones.length > 8) {
-					    vertigo = Boolean.parseBoolean(secciones[8]);
-					} else {
-						vertigo = false;
+					    try {
+					    	vertigo = Boolean.parseBoolean(secciones[8]);
+						} catch (NumberFormatException e) {
+							System.out.println("error al evaluar,convertir y almacenar si podruce vertigo: " + secciones[8] + " linea: " + linea);
+						}
 					}
 					
-					boolean esTemporada;
+					boolean esTemporada=false;
 					if (secciones.length > 9) {
-						esTemporada = Boolean.parseBoolean(secciones[9]);
-					} else {
-						esTemporada = false;
+						try {
+							esTemporada = Boolean.parseBoolean(secciones[9]);
+						} catch (NumberFormatException e) {
+							System.out.println("error al evaluar,convertir y almacenar si es de temporada: " + secciones[9] + " linea: " + linea);
+						}
 					}
-					String fecha;
+					String fecha="desconocida";
 					
 					if (secciones.length > 10) {
-	                    fecha = secciones[10];
-	                } else {
-	                    fecha = "Desconocida";
-	                }
+	                    try {
+	                    	fecha = secciones[10];
+						} catch (NumberFormatException e) {
+							System.out.println("error al evaluar,convertir y almacenar fecha: " + secciones[10] + " linea: " + linea);
+						}
+					}
 					AtraccionMecanica mec = new AtraccionMecanica(cupo, numEmpleado, nivelAtraccion, tipoAtraccion, nombreAtraccion);
 					mec.setPesoUsuario(peso);
 					mec.setAlturaUusario(altura);

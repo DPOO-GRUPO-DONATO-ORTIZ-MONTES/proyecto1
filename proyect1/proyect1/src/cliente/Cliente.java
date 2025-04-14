@@ -83,14 +83,24 @@ public class Cliente {
             String linea;
             while ((linea = reader.readLine()) != null) {
                 String[] datos = linea.split(",");
+                if (datos.length < 4) {
+                    System.out.println("Error datos incompletos. Se requieren 4 campos separados por comas de la forma Nombre,id,correo y constraseña "+ linea);
+                    continue;
+                }
                 String nombre = datos[0];
-                int ID = Integer.parseInt(datos[1]);
+                String idTexto = datos[1];
                 String correo = datos[2];
-                int password = Integer.parseInt(datos[3]);
+                String contrasenaTexto = datos[3];
 
                 // Crear un nuevo cliente y agregarlo a la lista
-                Cliente cliente = new Cliente(nombre, ID, correo, password);
-                listaClientes.put(correo, cliente);
+                try {
+                    int ID = Integer.parseInt(idTexto);
+                    int password = Integer.parseInt(contrasenaTexto);
+                    Cliente cliente = new Cliente(nombre, ID, correo, password);
+                    listaClientes.put(correo, cliente);
+                }catch (NumberFormatException e) {
+                	System.out.println("error al cargar id o contraseña,no son validos,verifique que el campo este completo o sean numeros " + linea);
+                }
             }
             System.out.println("Usuarios cargados desde el archivo.");
         } catch (IOException e) {

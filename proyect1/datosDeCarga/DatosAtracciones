@@ -1,0 +1,21 @@
+cultural,Museo del Espacio,35,8,Alta,20,true,Verano
+cultural,Aventura Medieval,25,3,Alta,10,true,Otoño
+cultural,Ferris Wheel,20,4,Media,8,false,Invierno
+cultural,Ciudad Antigua,20,3,Media,15,false,Invierno
+cultural,Aquarium,30,7,Media,5,false,Verano
+mecanica,Montaña Rusa,30,5,Alta,100,200,true,false,true,Primavera
+mecanica,Desafío,15,3,Baja,75,190,true,true,true,Otoño
+mecanica,Castillo Encantado,15,6,Alta,80,200,false,true,false,Verano
+mecanica,Montaña Rusa Acuática,25,4,Alta,85,160,true,false,true,Verano
+cultural,Museo Fantasma,35,8,Alta
+mecanica,Torre del Terror,30,5,Alta,90,170
+cultural,Exposición de arte,20,6,Alta,18
+mecanica,Vuelo del Halcón
+cultural,Bosque Encantado,treinta,5,Alta,12,true,Verano
+cultural,Teatro de Sombras,20,cinco,Media,8,false,Otoño
+mecanica,La Bestia,25,4,Alta,noventa,150,true,false,false,Otoño
+mecanica,Rayo Laser,15,3,Baja,70,170,yes,no,true,Verano
+cultural,Misterio Nocturno,30,7,Alta,veinte,true,Verano
+mecanica,Rueda Cósmica,40,8,Alta,90,170,false,true,false,Invierno,Extra
+cultural,Ópera Espacial,true,Alta,30,8,Verano
+mecanica,Colina Rápida,15,3,Baja,70,true,true,false

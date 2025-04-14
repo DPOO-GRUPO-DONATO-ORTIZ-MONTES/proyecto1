@@ -318,6 +318,7 @@ public class Main {
     	boolean salir = true;
         System.out.println("Gestionando empleados...");
         while (salir) {
+        try {	
         System.out.println("Gestion de empleado: " + emp.getNombre());
         System.out.println("ingrese una de las siguientes opciones ");
         System.out.println("1 para cambiar turno");
@@ -325,6 +326,10 @@ public class Main {
         System.out.println("3 para subir horas extra");
         System.out.println("4 para cambiar lugar asignado ");
         System.out.println("5 para volver al menu principal ");
+        }catch (Exception e) {
+            System.out.println("¡Error! Debe ingresar un número entero.");
+            sc.nextLine(); 
+        }
         
         String seleccion = sc.nextLine();
         
@@ -336,9 +341,14 @@ public class Main {
         	
         }else if (seleccion.equals("2")) {
         	System.out.println("nuevo salario asignado: ");
+        	try {
         	int salario = Integer.parseInt(sc.nextLine());
         	emp.setSalario(salario);
         	System.out.println("salario nuevo asignado");
+        	}catch(Exception e) {
+        		System.out.println("¡Error! Debe ingresar un número entero (oprima enter)");
+                sc.nextLine();
+        	}
         }else if(seleccion.equals("3")) {
         	emp.setHoraExtra(true);
         	System.out.println("hay horas extra");
