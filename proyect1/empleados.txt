@@ -1,1 +1,0 @@
-juan,12345,cajero,mañana

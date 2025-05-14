@@ -11,104 +11,161 @@ import Tiquete.VentaOnline;
 import parqueDeDiversiones.ParqueDeDiversiones;
 
 public class Main {
-
-    // Lista para almacenar usuarios y empleados
+	// Lista para almacenar usuarios y empleados
     private static Map<String,Cliente> listaClientes =cliente.Cliente.listaClientes; // Usamos el mapa de Cliente
     private static List<empleado> listaEmpleados = new ArrayList<>();
-    
+    private static  String contra="102886";
+    private static  String contra1="102086";
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        // Opciones del menú
         while (true) {
-            System.out.println("Seleccione una opción:");
-            System.out.println("1. Registrar Usuario");
-            System.out.println("2. Registrar Empleado");
-            System.out.println("3. Vender Tiquete");
-            System.out.println("4. Gestionar Empleado,cambiar lugar y cambiar turno ");
-            System.out.println("5. Cargar Usuarios desde archivo");
-            System.out.println("6. Cargar atracciones desde archivo");
-            System.out.println("7. ver calatalogo de atracciones");
-            System.out.println("8. consultar tipo de pase");
-            System.out.println("9. ver empleados");
-            System.out.println("10. validar uso del tiquete ");
-            System.out.println("0. Salir");
-            int opcion = sc.nextInt();
-            sc.nextLine();  // Limpiar buffer
+            System.out.println("seleccione 1 si es usuario, seleccione 2 si es empleado o administrador");
+            String ope = sc.nextLine();
+            int op;
+            try {
+                op = Integer.parseInt(ope);
+            } catch (NumberFormatException e) {
+                System.out.println("Debe ingresar 1 o 2");
+                continue;
+            }
 
-            switch (opcion) {
-                case 1:
-                    registrarUsuario(sc);
-                    break;
-                case 2:
-                    registrarEmpleado(sc);
-                    break;
-                case 3:
-                    venderTiquete();
-                    break;
-                case 4:
-                	System.out.println("ingrese el nombre del empleado: ");
-                	Scanner scEmp=new Scanner(System.in);
-                	String nombreEmp = scEmp.nextLine();
-                	empleado emp = empleado.empleadosPorNombre.get(nombreEmp);
-                	if (emp!= null) {
-                		gestionarEmpleados(emp, sc);
-                	} else {
-                		System.out.println("Empleado no encontrado.");
-                	}
-                    break;
-                    
-                case 5:
-                	System.out.println("ingrese la ruta del archivo ");
-                	Scanner scRuta1 = new Scanner(System.in);
-                	String rutaArchivo1 = scRuta1.nextLine();
-                    Cliente.cargarUsuariosDesdeArchivo(rutaArchivo1);  // Cargar los usuarios desde el archivo
-                    break;
-                case 6:
-                	System.out.println("ingrese la ruta del archivo ");
-                	Scanner scRuta = new Scanner(System.in);
-                	String rutaArchivo = scRuta.nextLine();
-                	ParqueDeDiversiones.cargarAtracciones(rutaArchivo);
-                	break;
-                case 7:
-                	System.out.println("ingrese 1 si quiere ver todas las atracciones");
-                	System.out.println("ingrese 2 si quiere ver las atracciones mecanicas");
-                	System.out.println("ingrese 3 si quiere ver las atracciones culturales");
-                	Scanner scSelec = new Scanner(System.in);
-                	String sel = scSelec.nextLine();
-                	int selec;
+            if (op == 1) {
+                while (true) {
+                    System.out.println("bienvenido a la interfaz de usuario");
+                    System.out.println("Seleccione una opción:");
+                    System.out.println("1. Vender Tiquete");
+                    System.out.println("2. ver calatalogo de atracciones");
+                    System.out.println("3. consultar tipo de pase");
+                    System.out.println("0. Salir");
 
-                	try {
-                	    selec = Integer.parseInt(sel);
-                	} catch (NumberFormatException e) {
-                	    System.out.println("Entrada inválida. Debe ingresar un número.");
-                	    break;
-                	}
-                	
-                	ParqueDeDiversiones.mostrarAtracciones(selec);
-                	break;
-                case 8:
-                	consultarTipoDeTiquete(sc);
-                	break;
-                case 9:
-                	System.out.println("cargando empleados...");
-                	empleado.mostrarTodosEmpleados();
-                	break;
-                case 10:
-                	validarTiquete(sc);
-                	break;
-                case 0:
-                    guardarUsuariosEnArchivo(listaClientes);
-                    guardarEmpleadosEnArchivo();
-                    System.out.println("Datos guardados. Saliendo...");
-                    sc.close();
-                    return;
-                default:
-                    System.out.println("Opción no válida.");
+                    String inputOpcion1 = sc.nextLine();
+                    int opcion;
+                    try {
+                        opcion = Integer.parseInt(inputOpcion1);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Debe ingresar un número.");
+                        continue;
+                    }
+
+                    switch (opcion) {
+                        case 1:
+                            venderTiquete();
+                            break;
+                        case 2:
+                            ParqueDeDiversiones.mostrarAtracciones2();
+                            break;
+                        case 3:
+                            consultarTipoDeTiquete(sc);
+                            break;
+                        case 0:
+                            guardarUsuariosEnArchivo(listaClientes);
+                            System.out.println("Datos guardados. Saliendo...");
+                            return;
+                        default:
+                            System.out.println("Opción no válida.");
+                    }
+                }
+
+            } else if (op == 2) {
+                System.out.println("ingrese la contraseña correspondiente");
+                String contraf = sc.nextLine();
+                if (!contra1.equals(contraf)) {
+                    System.out.println("Contraseña incorrecta.");
+                    continue;
+                }
+
+                while (true) {
+                    System.out.println("Seleccione una opción:");
+                    System.out.println("1. Registrar Usuario");
+                    System.out.println("2. Registrar Empleado");
+                    System.out.println("3. Vender Tiquete");
+                    System.out.println("4. Gestionar Empleado, cambiar lugar y cambiar turno");
+                    System.out.println("5. Cargar Usuarios desde archivo");
+                    System.out.println("6. Cargar atracciones desde archivo");
+                    System.out.println("7. ver calatalogo de atracciones");
+                    System.out.println("8. consultar tipo de pase");
+                    System.out.println("9. ver empleados");
+                    System.out.println("10. validar uso del tiquete");
+                    System.out.println("0. Salir");
+
+                    String inputOpcion = sc.nextLine();
+                    int opcion1;
+                    try {
+                        opcion1 = Integer.parseInt(inputOpcion);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Entrada inválida. Debe ingresar un número.");
+                        continue;
+                    }
+
+                    switch (opcion1) {
+                        case 1:
+                            registrarUsuario(sc);
+                            break;
+                        case 2:
+                            registrarEmpleado(sc);
+                            break;
+                        case 3:
+                            venderTiquete();
+                            break;
+                        case 4:
+                            System.out.println("ingrese el nombre del empleado: ");
+                            String nombreEmp = sc.nextLine();
+                            empleado emp = empleado.empleadosPorNombre.get(nombreEmp);
+                            if (emp != null) {
+                                gestionarEmpleados(emp, sc);
+                            } else {
+                                System.out.println("Empleado no encontrado.");
+                            }
+                            break;
+                        case 5:
+                            System.out.println("ingrese la ruta del archivo");
+                            String rutaArchivo1 = sc.nextLine();
+                            Cliente.cargarUsuariosDesdeArchivo(rutaArchivo1);
+                            break;
+                        case 6:
+                            System.out.println("ingrese la ruta del archivo");
+                            String rutaArchivo = sc.nextLine();
+                            ParqueDeDiversiones.cargarAtracciones(rutaArchivo);
+                            break;
+                        case 7:
+                            System.out.println("ingrese 1 si quiere ver todas las atracciones");
+                            System.out.println("ingrese 2 si quiere ver las atracciones mecanicas");
+                            System.out.println("ingrese 3 si quiere ver las atracciones culturales");
+                            String sel = sc.nextLine();
+                            int selec;
+                            try {
+                                selec = Integer.parseInt(sel);
+                            } catch (NumberFormatException e) {
+                                System.out.println("Entrada inválida. Debe ingresar un número.");
+                                break;
+                            }
+                            ParqueDeDiversiones.mostrarAtracciones(selec);
+                            break;
+                        case 8:
+                            consultarTipoDeTiquete(sc);
+                            break;
+                        case 9:
+                            System.out.println("cargando empleados...");
+                            empleado.mostrarTodosEmpleados();
+                            break;
+                        case 10:
+                            validarTiquete(sc);
+                            break;
+                        case 0:
+                            guardarUsuariosEnArchivo(listaClientes);
+                            guardarEmpleadosEnArchivo();
+                            System.out.println("Datos guardados. Saliendo...");
+                            return;
+                        default:
+                            System.out.println("Opción no válida.");
+                    }
+                }
+            } else {
+                System.out.println("Opción principal no válida.");
             }
         }
     }
-
     // Método para registrar un usuario (Cliente)
     public static void registrarUsuario(Scanner sc) {
         System.out.println("Ingrese el nombre del cliente:");
@@ -143,50 +200,59 @@ public class Main {
 
     // Método para registrar un empleado
     public static void registrarEmpleado(Scanner sc) {
-        System.out.println("Ingrese el tipo de empleado (cajero/cocinero/operadorMecanica):");
-        String tipoEmpleado = sc.nextLine();
-        System.out.println("Ingrese el nombre del empleado:");
-        String nombre = sc.nextLine();
-        System.out.println("Ingrese el turno del empleado:");
-        String turno = sc.nextLine();
-        Boolean horaExtra = obtenerValido(sc, "¿El empleado tiene horas extra? (true/false):");
-        int ID = obtenerEnteroValido(sc, "Ingrese el ID del empleado:");
-        int salario = obtenerEnteroValido(sc, "Ingrese el salario del empleado:");
-        System.out.println("Ingrese el rango de la atracción del empleado:");
-        String rangoAtraccion = sc.nextLine();
-        int bonusHoraExtra = obtenerEnteroValido(sc, "Ingrese el bonus por horas extra:");
-        System.out.println("Ingrese el lugar asignado:");
-        String lugarAsignado = sc.nextLine();
+    	System.out.println("ingrese la contraseña de administrador");
+    	Scanner scEntra = new Scanner(System.in);
+    	String contrasenia = scEntra.nextLine();
+    	if (contrasenia.equals(contra)) {
+    		System.out.println("Ingrese el tipo de empleado (cajero/cocinero/operadorMecanica):");
+            String tipoEmpleado = sc.nextLine();
+            System.out.println("Ingrese el nombre del empleado:");
+            String nombre = sc.nextLine();
+            System.out.println("Ingrese el turno del empleado:");
+            String turno = sc.nextLine();
+            Boolean horaExtra = obtenerValido(sc, "¿El empleado tiene horas extra? (true/false):");
+            int ID = obtenerEnteroValido(sc, "Ingrese el ID del empleado:");
+            int salario = obtenerEnteroValido(sc, "Ingrese el salario del empleado:");
+            System.out.println("Ingrese el rango de la atracción del empleado:");
+            String rangoAtraccion = sc.nextLine();
+            int bonusHoraExtra = obtenerEnteroValido(sc, "Ingrese el bonus por horas extra:");
+            System.out.println("Ingrese el lugar asignado:");
+            String lugarAsignado = sc.nextLine();
 
-        empleado nuevoEmpleado = null;
+            empleado nuevoEmpleado = null;
 
-        // Crear el empleado según su tipo
-        switch (tipoEmpleado.toLowerCase()) {
-            case "cajero":
-                System.out.println("Ingrese el punto asignado al cajero:");
-                String puntoAsignado = sc.nextLine();
-                nuevoEmpleado = new cajero(tipoEmpleado, nombre, turno, horaExtra, ID, salario, rangoAtraccion, bonusHoraExtra, lugarAsignado, puntoAsignado);
-                break;
-            case "cocinero":
-                System.out.println("Ingrese el certificado de alimentos del cocinero:");
-                String certificadoAlimentos = sc.nextLine();
-                nuevoEmpleado = new cocinero(tipoEmpleado, nombre, turno, horaExtra, ID, salario, rangoAtraccion, bonusHoraExtra, lugarAsignado, certificadoAlimentos);
-                break;
-            case "operadormecanica":
-                System.out.println("Ingrese las habilidades del operador (separadas por coma):");
-                String habilidades = sc.nextLine();
-                List<String> habilitadasOperar = Arrays.asList(habilidades.split(","));
-                nuevoEmpleado = new operadorMecanica(tipoEmpleado, nombre, turno, horaExtra, ID, salario, rangoAtraccion, bonusHoraExtra, lugarAsignado, habilitadasOperar, habilitadasOperar);
-                break;
-            default:
-                System.out.println("Tipo de empleado no válido.");
-                return;
-        }
+            // Crear el empleado según su tipo
+            switch (tipoEmpleado.toLowerCase()) {
+                case "cajero":
+                    System.out.println("Ingrese el punto asignado al cajero:");
+                    String puntoAsignado = sc.nextLine();
+                    nuevoEmpleado = new cajero(tipoEmpleado, nombre, turno, horaExtra, ID, salario, rangoAtraccion, bonusHoraExtra, lugarAsignado, puntoAsignado);
+                    break;
+                case "cocinero":
+                    System.out.println("Ingrese el certificado de alimentos del cocinero:");
+                    String certificadoAlimentos = sc.nextLine();
+                    nuevoEmpleado = new cocinero(tipoEmpleado, nombre, turno, horaExtra, ID, salario, rangoAtraccion, bonusHoraExtra, lugarAsignado, certificadoAlimentos);
+                    break;
+                case "operadormecanica":
+                    System.out.println("Ingrese las habilidades del operador (separadas por coma):");
+                    String habilidades = sc.nextLine();
+                    List<String> habilitadasOperar = Arrays.asList(habilidades.split(","));
+                    nuevoEmpleado = new operadorMecanica(tipoEmpleado, nombre, turno, horaExtra, ID, salario, rangoAtraccion, bonusHoraExtra, lugarAsignado, habilitadasOperar, habilitadasOperar);
+                    break;
+                default:
+                    System.out.println("Tipo de empleado no válido.");
+                    return;
+            }
 
-        // Agregar empleado a la lista
-        listaEmpleados.add(nuevoEmpleado);
-        empleado.empleadosPorNombre.put(nombre, nuevoEmpleado);
-        System.out.println("Empleado registrado con éxito.");
+            // Agregar empleado a la lista
+            listaEmpleados.add(nuevoEmpleado);
+            empleado.empleadosPorNombre.put(nombre, nuevoEmpleado);
+            System.out.println("Empleado registrado con éxito.");
+    	}
+    	else {
+    		System.out.println("contraseña invalida");
+    	}
+        
     }
     
     public static Boolean obtenerValido(Scanner sc, String mensaje) {
@@ -220,15 +286,22 @@ public class Main {
 
     // Método para guardar empleados en archivo
     public static void guardarEmpleadosEnArchivo() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("empleados.txt"))) {
-            for (empleado emp : listaEmpleados) {
-                writer.write(emp.getNombre() + "," + emp.getID() + "," + emp.getTipoEmpleado() + "," + emp.getTurno());
-                writer.newLine();
+    	System.out.println("ingrese la contraseña de administrador");
+    	Scanner scEntra = new Scanner(System.in);
+    	String contrasenia = scEntra.nextLine();
+    	if (contrasenia.equals(contra)) {
+    		try (BufferedWriter writer = new BufferedWriter(new FileWriter("empleados.txt"))) {
+                for (empleado emp : listaEmpleados) {
+                    writer.write(emp.getNombre() + "," + emp.getID() + "," + emp.getTipoEmpleado() + "," + emp.getTurno());
+                    writer.newLine();
+                }
+                System.out.println("Empleados guardados en el archivo.");
+            } catch (IOException e) {
+                System.out.println("Error al guardar empleados: " + e.getMessage());
             }
-            System.out.println("Empleados guardados en el archivo.");
-        } catch (IOException e) {
-            System.out.println("Error al guardar empleados: " + e.getMessage());
-        }
+    	}else {
+    		System.out.println("contraseña invalida");
+    	}
     }
 
     // Método de venta de tiquete 
@@ -315,53 +388,60 @@ public class Main {
 
     // Método para gestionar empleados 
     public static void gestionarEmpleados(empleado emp, Scanner sc) {
-    	boolean salir = true;
-        System.out.println("Gestionando empleados...");
-        while (salir) {
-        try {	
-        System.out.println("Gestion de empleado: " + emp.getNombre());
-        System.out.println("ingrese una de las siguientes opciones ");
-        System.out.println("1 para cambiar turno");
-        System.out.println("2 para subir salario");
-        System.out.println("3 para subir horas extra");
-        System.out.println("4 para cambiar lugar asignado ");
-        System.out.println("5 para volver al menu principal ");
-        }catch (Exception e) {
-            System.out.println("¡Error! Debe ingresar un número entero.");
-            sc.nextLine(); 
-        }
-        
-        String seleccion = sc.nextLine();
-        
-        if (seleccion.equals("1")) {
-        	System.out.println("nuevo turno asignado: ");
-        	String turno = sc.nextLine();
-        	emp.setTurno(turno);
-        	System.out.println("turno asignado ");
-        	
-        }else if (seleccion.equals("2")) {
-        	System.out.println("nuevo salario asignado: ");
-        	try {
-        	int salario = Integer.parseInt(sc.nextLine());
-        	emp.setSalario(salario);
-        	System.out.println("salario nuevo asignado");
-        	}catch(Exception e) {
-        		System.out.println("¡Error! Debe ingresar un número entero (oprima enter)");
-                sc.nextLine();
-        	}
-        }else if(seleccion.equals("3")) {
-        	emp.setHoraExtra(true);
-        	System.out.println("hay horas extra");
-        }else if(seleccion.equals("4")) {
-        	System.out.println("nuevo lugar asignado: ");
-        	String lugar = sc.nextLine();
-        	emp.cambiarLugarAsignado(lugar);
-        }else if(seleccion.equals("5")) {
-        	salir=false;
-        }else {
-            System.out.println("Opcion no valida ");
-        }
-    }
+    	System.out.println("ingrese la contraseña de administrador");
+    	Scanner scEntra = new Scanner(System.in);
+    	String contrasenia = scEntra.nextLine();
+    	if (contrasenia.equals(contra)) {
+    		boolean salir = true;
+            System.out.println("Gestionando empleados...");
+            while (salir) {
+            try {	
+            System.out.println("Gestion de empleado: " + emp.getNombre());
+            System.out.println("ingrese una de las siguientes opciones ");
+            System.out.println("1 para cambiar turno");
+            System.out.println("2 para subir salario");
+            System.out.println("3 para subir horas extra");
+            System.out.println("4 para cambiar lugar asignado ");
+            System.out.println("5 para volver al menu principal ");
+            }catch (Exception e) {
+                System.out.println("¡Error! Debe ingresar un número entero.");
+                sc.nextLine(); 
+            }
+            
+            String seleccion = sc.nextLine();
+            
+            if (seleccion.equals("1")) {
+            	System.out.println("nuevo turno asignado: ");
+            	String turno = sc.nextLine();
+            	emp.setTurno(turno);
+            	System.out.println("turno asignado ");
+            	
+            }else if (seleccion.equals("2")) {
+            	System.out.println("nuevo salario asignado: ");
+            	try {
+            	int salario = Integer.parseInt(sc.nextLine());
+            	emp.setSalario(salario);
+            	System.out.println("salario nuevo asignado");
+            	}catch(Exception e) {
+            		System.out.println("¡Error! Debe ingresar un número entero (oprima enter)");
+                    sc.nextLine();
+            	}
+            }else if(seleccion.equals("3")) {
+            	emp.setHoraExtra(true);
+            	System.out.println("hay horas extra");
+            }else if(seleccion.equals("4")) {
+            	System.out.println("nuevo lugar asignado: ");
+            	String lugar = sc.nextLine();
+            	emp.cambiarLugarAsignado(lugar);
+            }else if(seleccion.equals("5")) {
+            	salir=false;
+            }else {
+                System.out.println("Opcion no valida ");
+            }
+            }
+    	}else {
+    		System.out.println("contraseña invalida");
+    	}
     }
     public static void validarTiquete(Scanner sc) {
         System.out.println("Ingrese el correo del cliente:");
