@@ -213,6 +213,7 @@ public class Main {
             Boolean horaExtra = obtenerValido(sc, "¿El empleado tiene horas extra? (true/false):");
             int ID = obtenerEnteroValido(sc, "Ingrese el ID del empleado:");
             int salario = obtenerEnteroValido(sc, "Ingrese el salario del empleado:");
+            System.out.println("Ingrese el rango de la atracción del empleado:");
             String rangoAtraccion = sc.nextLine();
             int bonusHoraExtra = obtenerEnteroValido(sc, "Ingrese el bonus por horas extra:");
             System.out.println("Ingrese el lugar asignado:");
