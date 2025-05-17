@@ -109,6 +109,7 @@ public class Cliente {
     }
 	public void mostrarTiposDeTiquetesComprados() {
 		//para poder mostrar esto fue necesario consultar ya que nos era dificil encontrar una manera para iterar sobre el mapa
+		System.out.println(tiqueteComprado);
 	    if (tiqueteComprado.isEmpty()) {
 	        System.out.println("El cliente no ha comprado ningún tiquete.");
 	        return;
@@ -118,7 +119,7 @@ public class Cliente {
 	    for (Map.Entry<String, Map<String, String>> entrada : tiqueteComprado.entrySet()) {
 	        String idTiquete = entrada.getKey();
 	        String tipo = entrada.getValue().get("Tipo");
-	        System.out.println(" la id es: " + idTiquete + "el tipo es: " + tipo);
+	        System.out.println(" la id es: " + idTiquete + " el tipo es: " + tipo);
 	    }
 	}
 }

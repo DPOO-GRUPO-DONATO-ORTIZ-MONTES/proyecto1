@@ -1,110 +1,41 @@
 package consola;
 
-import java.io.*;
-import java.util.*;
-import cliente.Cliente;
-import Empleado.empleado;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+
 import Empleado.cajero;
 import Empleado.cocinero;
+import Empleado.empleado;
 import Empleado.operadorMecanica;
 import Tiquete.VentaOnline;
+import cliente.Cliente;
 import parqueDeDiversiones.ParqueDeDiversiones;
 
-
-//esta consola unifica el proceso de las 3 consolas.
-public class Main {
-	// Lista para almacenar usuarios y empleados
+public class MainAdministrador {
 	private static Map<String,Cliente> listaClientes =cliente.Cliente.listaClientes; // Usamos el mapa de Cliente
 	private static List<empleado> listaEmpleados = new ArrayList<>();
-	private static  String contra="102886";
+	private static  String contra="102086";
+	private static final String ARCHIVO_CLIENTES = "datosDeCarga/DatosUsuarios";
+	private static final String ARCHIVO_ATRACCIONES = "datosDeCarga/DatosAtracciones";
 	public static void main(String[] args) {
-		System.out.println("parque de diversiones");
+		Cliente.cargarUsuariosDesdeArchivo(ARCHIVO_CLIENTES);
+	    ParqueDeDiversiones.cargarAtracciones(ARCHIVO_ATRACCIONES);
 		Scanner sc = new Scanner(System.in);
-		while (true) {
-			System.out.println(" MENU PRINCIPAL");
-            System.out.println("1. Usuario");
-            System.out.println("2. Empleado / Administrador");
-            System.out.println("0. Salir");
-            System.out.print("Seleccione opción: ");
-
-            String entrada = sc.nextLine().trim();
-
-            switch (entrada) {
-                case "1":
-                    menuUsuario(sc);
-                    break;
-                case "2":
-                    menuAdmin(sc);
-                    break;
-                case "0":
-                    System.out.println("Saliendo...");
-                    return;
-                default:
-                    System.out.println("Opción inválida, intente de nuevo.");
-            }
-		}
-	}
-	private static void menuUsuario(Scanner sc) {
-		System.out.print("Ingrese su correo electronico para iniciar sesión: ");
-        String correo = sc.nextLine().trim();
-
-        if (!listaClientes.containsKey(correo)) {
-            System.out.println("Usuario no registrado. Registrando nuevo usuario...");
-            registrarUsuario(sc);
-            System.out.print("Ingrese su correo electronico nuevamente para iniciar sesión: ");
-            correo = sc.nextLine().trim();
-            if (!listaClientes.containsKey(correo)) {
-                System.out.println("Error: Usuario aún no registrado. Volviendo al menu principal.");
-                return;
-            }
-        }
-
-        Cliente cliente = listaClientes.get(correo);
-        System.out.println("Bienvenido " + cliente.getNombre());
-        while (true) {
-        	System.out.println("bienvenido a la interfaz de usuario");
-        	System.out.println("Seleccione una opción:");
-        	System.out.println("1. comprar Tiquete");
-        	System.out.println("2. ver calatalogo de atracciones");
-        	System.out.println("3. consultar tipo de pase");
-        	System.out.println("0. Salir");
-
-        	String inputOpcion1 = sc.nextLine();
-        	int opcion;
-        	try {
-        		opcion = Integer.parseInt(inputOpcion1);
-        	} catch (NumberFormatException e) {
-        		System.out.println("Debe ingresar un número.");
-        		continue;
-        	}
-
-        	switch (opcion) {
-        	case 1:
-        		venderTiquete();
-        		break;
-        	case 2:
-        		ParqueDeDiversiones.mostrarAtracciones2();
-        		break;
-        	case 3:
-        		consultarTipoDeTiquete(sc);
-        		break;
-        	case 0:
-        		guardarUsuariosEnArchivo(listaClientes);
-        		System.out.println("Datos guardados. Saliendo...");
-        		return;
-        	default:
-        		System.out.println("Opción no válida.");
-        	}
-        }
-	}
-	private static void menuAdmin(Scanner sc) {
+		System.out.println("contraseña:102086 .dado que se tiene una constraseña unica,con el fin de que se pueda probar la consola se da la contraseña");
 		System.out.println("ingrese la contraseña correspondiente");
 		String contraf = sc.nextLine();
 		if (!contra.equals(contraf)) {
 			System.out.println("Contraseña incorrecta.");
+			System.out.println("cerrando consola...");
 			return;
 		}
-
 		while (true) {
 			System.out.println("Seleccione una opción:");
 			System.out.println("1. Registrar Usuario");

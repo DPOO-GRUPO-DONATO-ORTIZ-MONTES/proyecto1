@@ -12,8 +12,8 @@ import atraccion.AtraccionCultural;
 import atraccion.AtraccionMecanica;
 
 public class ParqueDeDiversiones {
-	private static List<Atraccion> atracciones = new ArrayList<>();
-	private static Map<String, String> mapaExclusividad = new HashMap<>();
+	public static List<Atraccion> atracciones = new ArrayList<>();
+	public static Map<String, String> mapaExclusividad = new HashMap<>();
 	
 
 	public static void cargarAtracciones(String rutaArchivo) {

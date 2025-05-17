@@ -64,47 +64,40 @@ public class VentaOnline {
 		informacionTiquete.put("nombre", nombre);
 		informacionTiquete.put("tipo", tipo);
 		informacionTiquete.put("fecha de venta", fechaActual);
-		if (fechaActual==fechaTemporada && tipo=="Diamante") {
-			valorfinalD="30000";
-			informacionTiquete.put("valor Tiquete", valorfinalD);
-			ventaTiquete.put(codigoTiquete, informacionTiquete);
-			return ventaTiquete;
-			}
-		if (fechaActual==fechaTemporada && tipo=="Oro") {
-			valorfinalO="25000";
-			informacionTiquete.put("valor Tiquete", valorfinalO);
-			ventaTiquete.put(codigoTiquete, informacionTiquete);
-			return ventaTiquete;
-			}
-		if (fechaActual==fechaTemporada && tipo=="Familiar") {
-			valorfinalF="20000";
-			informacionTiquete.put("valor Tiquete", valorfinalF);
-			ventaTiquete.put(codigoTiquete, informacionTiquete);
-			return ventaTiquete;
-		}
 		if (tipo=="Oro") {
 			valorfinalO="30000";
 			informacionTiquete.put("valor Tiquete", valorfinalO);
 			ventaTiquete.put(codigoTiquete, informacionTiquete);
-			return ventaTiquete;
 		}
 		if ( tipo=="Diamante") {
 			valorfinalD="35000";
 			informacionTiquete.put("valor Tiquete", valorfinalD);
 			ventaTiquete.put(codigoTiquete, informacionTiquete);
-			return ventaTiquete;
 		}
 		if (tipo=="Familiar") {
 			valorfinalF="25000";
 			informacionTiquete.put("valor Tiquete", valorfinalF);
 			ventaTiquete.put(codigoTiquete, informacionTiquete);
-			return ventaTiquete;
 		}
 		if (tipo=="Basico") {
 			String valorfinalBasico="15000";
 			informacionTiquete.put("valor Tiquete",valorfinalBasico);
 			ventaTiquete.put(codigoTiquete, informacionTiquete);
-			return ventaTiquete;
+		}
+		if (fechaActual==fechaTemporada && tipo=="Diamante") {
+			valorfinalD="30000";
+			informacionTiquete.put("valor Tiquete", valorfinalD);
+			ventaTiquete.put(codigoTiquete, informacionTiquete);
+			}
+		if (fechaActual==fechaTemporada && tipo=="Oro") {
+			valorfinalO="25000";
+			informacionTiquete.put("valor Tiquete", valorfinalO);
+			ventaTiquete.put(codigoTiquete, informacionTiquete);
+			}
+		if (fechaActual==fechaTemporada && tipo=="Familiar") {
+			valorfinalF="20000";
+			informacionTiquete.put("valor Tiquete", valorfinalF);
+			ventaTiquete.put(codigoTiquete, informacionTiquete);
 		}
 		Tiquete nuevoTiquete = null;
 	    String tipoTiquete = informacionTiquete.get("tipo");
@@ -116,10 +109,7 @@ public class VentaOnline {
 	    } else if (tipoTiquete.equals("Basico")) {
 	        nuevoTiquete = new EntradaIndividual(codigoTiquete, tipoTiquete, fechaCompra, marcadorUso, cliente, null); // Aquí no hay atracciones asignadas.
 	    }
-
-	    if (nuevoTiquete != null) {
-	        cliente.tiqueteComprado(codigoTiquete,nuevoTiquete);
-	    }
+	    cliente.tiqueteComprado(codigoTiquete,nuevoTiquete);
 		return ventaTiquete;
 	}
 
