@@ -1,9 +1,4 @@
-/Empleado/
-/Tiquete/
-/administrador/
-/atraccion/
-/cliente/
+/interfazUsuario/
 /consola/
-/module-info.class
-/parqueDeDiversiones/
-/test/
+/cliente/
+/interfazAdministrador/

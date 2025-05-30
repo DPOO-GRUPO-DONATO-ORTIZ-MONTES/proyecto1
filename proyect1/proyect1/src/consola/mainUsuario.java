@@ -75,7 +75,7 @@ public class mainUsuario {
 				}
 				ParqueDeDiversiones.mostrarAtracciones(selec);
 				break;
-			case 3:
+			case 3:	
 				consultarTipoDeTiquete(sc);
 				break;
 			case 0:

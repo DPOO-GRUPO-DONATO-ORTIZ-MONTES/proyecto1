@@ -208,4 +208,10 @@ public class ParqueDeDiversiones {
 		System.out.println("se le mostrara un documento con las atracciones del parque,la disponibilidad esta sujeta a las condiciones del administrador.");
 		System.out.println("https://docs.google.com/document/d/1e5JwMiq-RgOteZKgc5gnyZGPTLaKty2HWOt57Jb8sek/edit?usp=sharing");
 	}
+	//─▄▄▀▀█▀▀▄▄
+    //▐▄▌─▀─▀─▐▄▌
+    //──█─▄▄▄─█──▄▄
+    //──▄█▄▄▄█▄─▐──▌
+    //▄█▀█████▐▌─▀─▐
+    //▀─▄██▀██▀█▀▄▄▀	
 }

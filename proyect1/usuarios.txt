@@ -1,14 +1,1 @@
-,119,,2222
-Ana Martínez,102,ana.martinez@hotmail.com,5678
-Camila Navarro,117,camila.navarro@gmail.com,0
-Verónica Díaz,116,veronica.diaz@gmail.com,9999
-Carlos Gómez,103,carlos.gomez@yahoo.com,9101
-Lucía Mendoza,108,lucia.mendoza@gmail.com,3333
-Daniel Ruiz,107,daniel.ruiz@hotmail.com,2222
-Luis Herrera,111,luis.herrera@gmail.com,5555
-Juan Perez,101,juan.perez@gmail.com,1234
-,104,luisa.torres@gmail.com,1121
-Esteban Quintero,110,esteban.quintero@gmail.com,4444
-Andrés Bonilla,115,andres.bonilla@gmail.com,8888
-Mario López,118,mario.lopez@gmail.com,1111
-Sofía Torres,120,sofia.torres@gmail.com,3333
+julian,1020,julisdona,1020
