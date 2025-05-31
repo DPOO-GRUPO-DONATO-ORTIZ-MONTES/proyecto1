@@ -31,7 +31,7 @@ public class VistaTiqueteEmpleado extends JFrame{
         venderTiq.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	venderTiquete vendertiq= new venderTiquete(); // implementar tiquete
+            	VentanaVentaTiqueteSimple vendertiq= new VentanaVentaTiqueteSimple(); // implementar tiquete
             	
             }
         });
@@ -39,14 +39,14 @@ public class VistaTiqueteEmpleado extends JFrame{
         validarTiq.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	validarTiquete validarTiquete= new validarTiquete();//implementar validar tiquete
+            	VentanaValidacionTiquete validarTiquete= new VentanaValidacionTiquete();//implementar validar tiquete
                 
             }
         });     
         consultarTiq.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	consultarTiquete consultarTiquete= new consultarTiquete(); //implementar consultar tiquete
+            	VentanaValidacionTiquete consultarTiquete= new VentanaValidacionTiquete(); //implementar consultar tiquete
                 
             }
         });     

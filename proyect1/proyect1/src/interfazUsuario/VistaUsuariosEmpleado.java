@@ -45,7 +45,7 @@ public class VistaUsuariosEmpleado extends JFrame{
         tipoUser.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	tipoUser validarTiquete= new tipoUser();//valida el tipo de tiquete falta implementar
+            	VentanaValidacionTiquete validarTiquete= new VentanaValidacionTiquete();//valida el tipo de tiquete falta implementar
                 
             }
         });     
